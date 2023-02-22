@@ -1,4 +1,4 @@
-## Flutter_Firebase_login_logout_app
+## Flutter_Firebase_login_logout_App
 
 A new Flutter project.
 
