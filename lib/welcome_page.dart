@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_login_logout_app/auth_controller.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  String email;
+  WelcomePage({Key? key,required this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class WelcomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  "a@a.com",
+                  email,
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 25,
@@ -64,23 +65,28 @@ class WelcomePage extends StatelessWidget {
           SizedBox(
             height: 120,
           ),
-          Container(
-            width: w * 0.4,
-            height: h * 0.08,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              image: const DecorationImage(
-                image: AssetImage("images/loginbtn.png"),
-                fit: BoxFit.cover,
+          GestureDetector(
+            onTap: (){
+              AuthController.instance.logout();
+            },
+            child: Container(
+              width: w * 0.4,
+              height: h * 0.08,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                image: const DecorationImage(
+                  image: AssetImage("images/loginbtn.png"),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: const Center(
-              child: Text(
-                "Log Out",
-                style: TextStyle(
-                  fontSize: 27,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: const Center(
+                child: Text(
+                  "Log Out",
+                  style: TextStyle(
+                    fontSize: 27,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -88,6 +94,5 @@ class WelcomePage extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

@@ -28,7 +28,7 @@ class AuthController extends GetxController {
       print("Login Page");
       Get.offAll(() => LoginPage());
     } else {
-      Get.offAll(() => WelcomePage());
+      Get.offAll(() => WelcomePage(email:user.email!));
     }
   }
 
@@ -56,5 +56,33 @@ class AuthController extends GetxController {
         ),
       );
     }
+  }
+  void login(String email, password) async {
+    try {
+      await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (e) {
+      Get.snackbar(
+        "About Login",
+        "Login Message",
+        backgroundColor: Colors.orangeAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: Text(
+          "Login Failed!",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+  void logout() async{
+    await auth.signOut();
   }
 }

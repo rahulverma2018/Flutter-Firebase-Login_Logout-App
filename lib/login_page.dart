@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_login_logout_app/auth_controller.dart';
 import 'package:flutter_firebase_login_logout_app/signup_page.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -70,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       hintText: "Your Email Address",
                       prefixIcon: Icon(
@@ -110,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   child: TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                       hintText: "Password",
                       prefixIcon: Icon(
@@ -155,23 +160,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 70),
           //Yeh Container signIn button k liye!
-          Container(
-            width: w * 0.4,
-            height: h * 0.08,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              image: const DecorationImage(
-                image: AssetImage("images/loginbtn.png"),
-                fit: BoxFit.cover,
+          GestureDetector(
+            onTap: (){
+              AuthController.instance.login(emailController.text.trim(),passwordController.text.trim());
+            },
+            child: Container(
+              width: w * 0.4,
+              height: h * 0.08,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                image: const DecorationImage(
+                  image: AssetImage("images/loginbtn.png"),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: const Center(
-              child: Text(
-                "Sign In",
-                style: TextStyle(
-                  fontSize: 26,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: const Center(
+                child: Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontSize: 26,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
